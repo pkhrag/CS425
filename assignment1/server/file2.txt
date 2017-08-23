@@ -1,0 +1,19 @@
+To allow more efficient shifts we encode the information using “buffer zones”: Rather
+than having each of U’s parallel tapes correspond exactly to a tape of M, we add a
+special kind of blank symbol "
+8 to the alphabet of U’s parallel tapes with the semantics
+that this symbol is ignored in the simulation. For example, if the nonblank contents of
+M’s tape are 010, then this can be encoded in the corresponding parallel tape of U not
+just by 010 but also by 0 "
+8 01 or 0 "
+8 "
+8 1 "
+8 0 and so on.
+For convenience, we think of U’s parallel tapes as infinite in both the left and right
+directions (this can be easily simulated with minimal overhead: see Claim 1.8). Thus, we
+index their locations by 0, ±1, ±2, . . . . Normally we keep U’s head on location 0 of these
+parallel tapes. We will only move it temporarily to perform a shift when, following our
+general approach, we simulate a left head movement by shifting the tape to the right
+and vice versa. At the end of the shift, we return the head to location 0.
+We split each of U’s parallel tapes into zones that we denote by
+R 0 , L 0 , R 1 , L 1 , . . . (we’ll only need to go up to R log T , L log T ).

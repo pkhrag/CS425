@@ -1,0 +1,12 @@
+That is, since we can not move U’s read-write head in different directions at once,
+we simply move the parallel tapes “under” the head. To simulate a single step of M, we
+shift all the nonblank symbols in each of these parallel tapes until the head’s position
+in these parallel tapes corresponds to the heads’ positions of M’s k tapes. For example,
+if k = 3 and in some particular step M’s transition function specifies the movements
+    L, R, R, then U will shift all the nonblank entries of its first parallel tape one cell to the
+    right, and shift the nonblank entries of its second and third tapes one cell to the left (see
+    Figure 1.8). U can easily perform such shifts using an additional “scratch” work tape.
+    The approach above is still not good enough to get O(T log T)-time simulation. The
+    reason is that there may be as many as T nonblank symbols in each parallel tape, and so
+    each shift operation may cost U as much as T operations per each step of M, resulting
+    in $(T 2 )-time simulation.
