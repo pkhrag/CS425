@@ -1,0 +1,36 @@
+Compile:
+
+$ gcc -o server server.c
+$ gcc -o client client.c
+
+
+
+Execution:
+
+$ ./server
+$ ./client <username>:<password>@<server_ip>
+
+
+
+Assumptions:
+
+1) Maximum file size is hard-coded to 1000 bytes.
+2) Maximum size of username, filename and password is hardcoded to 500 bytes.
+3) One client will connect at a time.
+4) username and password can't have ':' and '@'.
+
+
+
+Implementation:
+
+We first run the server at localhost on port 2222. For that, we first created a TCP socket and bind it with the above address. The server then wait for a client to connect. In the client, we create a TCP socket and bind it with the address given in the argument. It then connects with the server which creates another socket for the rest of the communication.
+Once the connection is established, client send the username and password to the server for authentication by writing on the socket. The server reads on socket and parses credentials. For authentication, server opens the users.txt file and reads all the username and passwords. If any of the credentials matches with the given credentials, it sends hello <username> back to the client otherwise it sends Authentication Failure on the same socket. Once the authentication is done, the client
+requests for a user given file from the server. If the file is present on the server, it sends the file otherwise sends that the file doesn't exist. After that the socket is closed and the connection is ended.
+
+
+
+Limitations:
+
+1) If a failure is occurred at any point in the communication, the connection is lost and have start the whole process again.
+2) Files are not privileged, client can ask for any file including users.txt.
+3) A protocol have to be decided between client and server for communication.
